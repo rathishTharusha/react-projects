@@ -4,7 +4,7 @@ import Task from './Task'
 const App = () => {
     return(
         <div>
-            <h1>hello project</h1>
+            <header><h1> hello project</h1></header>
             <Task />
             <Task />
             <Task />

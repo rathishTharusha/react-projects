@@ -1,0 +1,36 @@
+.container{
+    position: relative;
+}
+
+.task-bar{
+    height: 82px;
+    width: 80%;
+    height: auto;
+}
+
+.user-input{
+    position: absolute;
+    top: 25%;
+    right:10%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    
+}
+
+.task-text{
+    background-color:#2BDAC5;
+    width:50vw;
+    height: auto;
+    border: none;
+    font-size: 2rem;
+}
+input:focus {
+    outline: none;
+}
+
+.tick{
+    position: absolute;
+    top: 25%;
+    left:6%;
+}
