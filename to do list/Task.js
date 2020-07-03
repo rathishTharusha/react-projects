@@ -3,10 +3,10 @@ import './tasks.css'
 
 class Task extends Component{
     constructor(props){
-        super()
+        super(props)
         this.state = {
-            done: true,
-            task:"",
+            done: false,
+            task:this.props.task,
         }
         this.handleChange =  this.handleChange.bind(this) 
         this.didWork =  this.didWork.bind(this)
@@ -33,8 +33,7 @@ class Task extends Component{
         const tick = {
             display: done,
         }
-    
-
+        
         return(    
             <div className="parent">
                 <div className="container" onClick={this.didWork}>
