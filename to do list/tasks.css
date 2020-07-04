@@ -1,20 +1,20 @@
 .container{
     position: relative;
+    width: 100vw;
 }
 
 .task-bar{
-    height: 82px;
-    width: 80%;
     height: auto;
+    width: 80vw;
 }
 
 .user-input{
     position: absolute;
-    top: 25%;
-    right:10%;
-    width: 100%;
+    top: 6vh;
+    left:3vw;
+    width: 80vw;
     text-align: center;
-    font-size: 18px;
+    font-size: 2rem;
     
 }
 
@@ -31,6 +31,13 @@ input:focus {
 
 .tick{
     position: absolute;
-    top: 25%;
-    left:6%;
+    top: 5vh;
+    left:6vw;
 }
+
+.delete-icon {
+    position: absolute;
+    top: 4vh;
+    right: 15vw;
+}
+
