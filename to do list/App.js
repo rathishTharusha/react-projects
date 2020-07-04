@@ -16,6 +16,10 @@ class App extends Component {
         this.addTask = React.createRef()
     }
 
+    componentDidMount(){
+        this.addTask.current.focus()
+    }
+
     handleChange(event){
         const input = event.target
         const value = input.type === "checkbox" ? input.checked : input.value
@@ -37,17 +41,19 @@ class App extends Component {
         this.addTask.current.focus()
     }
 
-    ondelete(event){
-        const remove = event.target.name
-        const newList = this.state.tasks.filter(task => task !== remove)
+    ondelete(taskID){
+        const newList = this.state.tasks
+        newList[taskID] = null
         this.setState({
             tasks: newList,
         })
-        console.log("this is task : ", event.target.name)
     }
 
     render(){
-        const taskList = this.state.tasks.map(task => <Task task={task} key={task} remove={this.ondelete}/>)
+        
+        const taskList = this.state.tasks
+            .filter(task => task !== null)
+            .map(task => <Task taskID={this.state.tasks.indexOf(task)} task={task} key={task} remove={this.ondelete} className="card-body" />)
 
         if(this.state.newTask.length > 35){
             alert("Your task content has been\n overflowed !!!\nPlease input less than 35 characters.")
@@ -58,8 +64,8 @@ class App extends Component {
             <div>
                 <Title />
 
-                <form className="form-group">
-                    <div className="input-group">
+                <form className="form-group card">
+                    <div className="input-group card-body">
                         <div className="input-group-prepend">
                             <input type="submit" onClick={this.handleSubmit} className="btn btn-info" value="add task" />
                         </div>
@@ -69,14 +75,16 @@ class App extends Component {
                             onChange = {this.handleChange}
                             onSubmit = {this.submitChange}
                             ref={this.addTask}
+                            placeholder="add your task here" 
                         />
                     </div>
                         
-                <small id="emailHelp" className="form-text text-muted">add task from here</small>
                 </form>
 
-                {taskList}
-            
+                <div className="card bg-info">
+                    {taskList.length === 0 ? <p className="text-center text-light">No tasks for now.</p>: taskList}
+                </div>
+                        
             </div> 
         )
     }

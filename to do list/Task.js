@@ -58,11 +58,10 @@ class Task extends Component{
 
                     <div className="user-input">
                         <input type="text" className="task-text" aria-label="Text input with checkbox"
-                            placeholder="add your task here" 
+                            placeholder="update your task here" 
                             name="task" 
                             value={this.state.task}
                             onChange = {this.handleChange}
-                            onSubmit = {this.submitChange}
                         />
                     </div>
 
@@ -73,7 +72,7 @@ class Task extends Component{
                         </svg>
 
                     </div>
-                    <button className="btn btn-danger delete-icon" name={this.state.task} onClick={this.props.remove}>
+                    <button className="btn btn-danger delete-icon" name={this.state.task} onClick={() => this.props.remove(this.props.taskID)}>
                         <i className="fa fa-trash"></i>
                     </button>  
                 </div>
