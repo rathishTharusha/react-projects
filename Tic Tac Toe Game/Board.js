@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Cross from './Cross'
 import Circle from './Circle'
+import calculateWinner from './winner'
 import './board.css'
 
 class Board extends Component{
@@ -18,7 +19,7 @@ class Board extends Component{
     tickSquare(event){
         const id = event.target.id
         const newPattern = this.state.pattern
-        newPattern[id] = this.state.isTick ? <Cross /> : <Circle />
+        newPattern[id] = this.state.isTick ? "X" : "O"
         this.setState({
             pattern: newPattern,
             isTick: !this.state.isTick
@@ -33,20 +34,35 @@ class Board extends Component{
     }
 
     render(){
+    const winner = calculateWinner(this.state.pattern)
+
+    
+    const status = winner === "X"
+                    ? "Player 'X' won the game !!!"
+                    : winner === "O"
+                        ? "Player 'O' won the game !!!"
+                        : "Your Game goes here"
 
     const userInteraction = this.state.boxes.map((num) => {
         let classname = "box box-" + num
-        return (<div 
-                    onClick={this.state.pattern[num] === null ? this.tickSquare:""} 
-                    className={classname} 
-                    id={num} key={num}>
-                        {this.state.pattern[num]}
+                    
+            return (<div 
+                onClick={this.state.pattern[num] === null && winner === null ? this.tickSquare:""} 
+                className={classname} 
+                id={num} key={num}>
+                    {this.state.pattern[num] === "X" 
+                        ? <Cross /> 
+                        : this.state.pattern[num] === "O"
+                            ? <Circle />
+                            : null 
+                    }
                 </div>)
-    })
-
+            })
+                    
+    
         return(
             <div className="text-center" > 
-                <h1>Your Game goes here</h1>
+                <h1>{status}</h1>
                 <div>
                     <svg className="container" width="403" height="392" viewBox="0 0 403 392" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="403" height="392" rx="90" fill="#30E342"/>
