@@ -1,0 +1,50 @@
+.board{
+    position: relative;
+    width: 100vw;
+}
+
+.box {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
+
+.box-0{
+    top: 27%;
+    left: 36%;
+}
+
+.box-1{
+    top: 27%;
+    left: 46%;
+}
+
+.box-2{
+    top: 27%;
+    left: 56%;
+}
+.box-3{
+    top: 39.5%;
+    left: 36%;
+}
+.box-4{
+    top: 39.5%;
+    left: 46%;
+}
+.box-5{
+    top: 39.5%;
+    left: 56%;
+}
+.box-6{
+    top: 52%;
+    left: 36%;
+}
+.box-7{
+    top: 52%;
+    left: 46%;
+}
+.box-8{
+    top: 52%;
+    left: 56%;
+}
