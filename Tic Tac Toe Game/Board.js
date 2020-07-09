@@ -1,66 +1,75 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import Cross from './Cross'
 import Circle from './Circle'
 import calculateWinner from './winner'
 import './board.css'
 
-class Board extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            pattern: [null, null, null, null, null, null, null, null, null],
-            boxes: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-            isTick: true,
-        }
-        this.tickSquare = this.tickSquare.bind(this)
-        this.restart = this.restart.bind(this)
-    }
-
-    tickSquare(event){
-        const id = event.target.id
-        const newPattern = this.state.pattern
-        newPattern[id] = this.state.isTick ? "X" : "O"
-        this.setState({
-            pattern: newPattern,
-            isTick: !this.state.isTick
-        })
-    }
-
-    restart(){
-        this.setState({
-            pattern: [null, null, null, null, null, null, null, null, null],
-            isTick: true,
-        })
-    }
-
-    render(){
-    const winner = calculateWinner(this.state.pattern)
-
+const Board = () => {
     
+    const boxes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    const [history, setHistory] = useState([Array(9).fill(null)])
+    const [step ,setStep] = useState(0)
+    const [isTick, setIsTick] = useState(true)
+    const winner = calculateWinner(history[step])
+
+
+    const handleClick = (event) => {
+        const id = event.target.id
+        const timeInHistory = history.slice(0, step + 1)
+        const newPattern = [...timeInHistory[step]]
+        newPattern[id] = isTick ? "X" : "O"
+        
+        setHistory([...timeInHistory, newPattern])
+        setStep(timeInHistory.length)
+        setIsTick(!isTick)
+        console.log(newPattern)
+        calculateWinner("winner : ",history[step])
+    } 
+
+    const restart = () => {
+        setHistory([Array(9).fill(null)])
+        setStep(0)
+        setIsTick(true)
+    }
+
+    const goTo = (move) => {
+        setStep(move)
+        setIsTick(step % 2 === 0)
+    }
+
     const status = winner === "X"
                     ? "Player 'X' won the game !!!"
                     : winner === "O"
                         ? "Player 'O' won the game !!!"
                         : "Your Game goes here"
 
-    const userInteraction = this.state.boxes.map((num) => {
+    const userInteraction = boxes.map((num) => {
         let classname = "box box-" + num
                     
             return (<div 
-                onClick={this.state.pattern[num] === null && winner === null ? this.tickSquare:""} 
+                onClick={history[step][num] === null && winner === null ? handleClick:null} 
                 className={classname} 
                 id={num} key={num}>
-                    {this.state.pattern[num] === "X" 
+                    {history[step][num] === "X" 
                         ? <Cross /> 
-                        : this.state.pattern[num] === "O"
+                        : history[step][num] === "O"
                             ? <Circle />
                             : null 
                     }
                 </div>)
             })
                     
-    
-        return(
+    const timePath = history.map((_value, move) => {
+        return <button
+            className = {move ? "btn btn-primary col m-2" : "btn btn-warning col-12"}
+            onClick = {move ? () => goTo(move) : restart}
+            key={move}
+        >
+            {move ? `goto move #${move}`: 'Restart'}
+        </button>
+    })
+
+    return(
             <div className="text-center" > 
                 <h1>{status}</h1>
                 <div>
@@ -80,13 +89,13 @@ class Board extends Component{
 
                 {userInteraction}
                 <br />
-                <button className = "btn btn-warning" onClick={this.restart}>
-                    Restart 
-                </button>
+                <div className="row m-5">
+                    {timePath}
+                </div>
             </div>
   
         )
-    }
+    
 
 }
 
