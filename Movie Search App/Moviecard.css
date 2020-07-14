@@ -1,0 +1,28 @@
+.movie-card{
+    width: 70vw;
+    height: 70vh;
+    
+}
+
+.movie-img{
+    opacity: .2;
+}
+
+.movie-content{
+    color: brown;
+}
+
+.movie-inner-img{
+    width: 20vw;
+    height: 30vh;
+    overflow: hidden;
+}
+
+.movie-desc{
+    height: 35vh;
+    overflow: auto;
+}
+
+.card-title{
+    color: rgb(235, 53, 53);
+}
