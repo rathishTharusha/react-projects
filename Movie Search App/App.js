@@ -13,7 +13,7 @@ const App = () => {
             return null;
         }
 
-        const url = `https://api.themoviedb.org/3/search/movie?api_key=dcd6f67c517fb964bc429d20c576d4f1&language=en-US&query=${query}&page=1`
+        const url = `https://api.themoviedb.org/3/search/movie?api_key=${apikey}&language=en-US&query=${query}&page=1`
         
         try{
             const res = await fetch(url)
